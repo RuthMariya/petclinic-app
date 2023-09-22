@@ -26,6 +26,7 @@ jobs:
         cache: maven
     -  run: mvn spring-javaformat:apply
     -  run: mvn clean package -DskipTests --file pom.xml
+    -  run: mkdir -p target 
     -  uses: actions/upload-artifact@v2
        with:
           name: artifact
