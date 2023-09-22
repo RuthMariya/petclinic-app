@@ -9,8 +9,13 @@
 name: Java CI with Maven
 
 on:
-  push:
-    branches: [ "main" ]
+   
+  workflow_dispatch:
+    inputs:
+      publish_artifacts:
+        description: 'Publish artifacts'
+        required: true
+        default: 'true'
 
 jobs:
   build:
@@ -27,8 +32,11 @@ jobs:
     -  run: mvn spring-javaformat:apply
     -  run: mvn clean package -DskipTests --file pom.xml
     -  run: mkdir -p target 
-    -  uses: actions/upload-artifact@v2
-       with:
+    
+    - if: github.event.inputs.publish_artifacts == 'true'
+      name: Publish Artifacts
+      uses: actions/upload-artifact@v2
+      with:
           name: artifact
           path: target/
      
