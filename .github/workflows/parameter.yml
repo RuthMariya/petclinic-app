@@ -1,0 +1,31 @@
+name: Java CI with Maven
+
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: 'should build happen?'
+        required: true
+        default: 'true'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - run: mkdir -p target 
+    
+    - name: Build if specified
+      if: ${{ github.event.inputs.build == 'true' }}
+      run: |
+        mvn spring-javaformat:apply
+        mvn clean package -DskipTests --file pom.xml
+      working-directory: target/
+     
