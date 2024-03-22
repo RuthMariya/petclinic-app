@@ -23,6 +23,7 @@ jobs:
     - name: Install and run spring-javaformat
       run: |
         mvn spring-javaformat:apply
+        pwd
 
     - name: Build with Maven
       run: mvn clean package -DskipTests
