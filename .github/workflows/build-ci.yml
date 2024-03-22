@@ -69,7 +69,7 @@ jobs:
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        filename: target/site/jacoco/jacoco.xml
+        filename: site/jacoco/jacoco.xml
         badge: true
         fail_below_min: true
         format: markdown
