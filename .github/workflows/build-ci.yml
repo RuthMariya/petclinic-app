@@ -101,3 +101,4 @@ jobs:
 
     - name: Push Docker image
       run: docker push ruth99/github-actions-pet-clinic:${{ github.sha }}
+      
