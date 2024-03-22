@@ -50,6 +50,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '17'
+        distribution: 'temurin'
 
     - name: Run tests and generate Jacoco report
       run: mvn test jacoco:report
