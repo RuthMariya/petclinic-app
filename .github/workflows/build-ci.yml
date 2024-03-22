@@ -51,6 +51,14 @@ jobs:
       run: |
         mvn spring-javaformat:apply
         mvn test verify jacoco:report
+        
+    - name: Archive test files and code coverage reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-reports
+        path: |
+          target/surefire-reports
+          target/site/jacoco
 
     # - name: Upload code coverage
     #   uses: actions/upload-artifact@v2
