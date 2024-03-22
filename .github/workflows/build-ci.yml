@@ -73,6 +73,12 @@ jobs:
         name: app-jar
         path: target/*.jar
 
+    - name: docker login
+      uses: docker/login-action@v1
+      with:
+          username: ${{ secrets.DOCKER_LOGIN }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
