@@ -80,6 +80,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ruth99/github-actions-pet-clinic:${{ github.sha }}
+          
         
 
   
