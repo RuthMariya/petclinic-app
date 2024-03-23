@@ -1,6 +1,8 @@
 name: All JDKs on all OSs
 
 on: [workflow_dispatch,pull_request]
+permissions:
+  checks: write
 
 jobs:
   build:
