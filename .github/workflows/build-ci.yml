@@ -54,7 +54,7 @@ jobs:
         mvn test verify jacoco:report
 
     - name: Copy Coverage To Predictable Location
-      run: cp target/*/jacoco/jacoco.xml target/site/jacoco/jacoco.xml
+      run: cp target/*/jacoco/jacoco.xml target/site/jacoco.xml
 
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
@@ -66,7 +66,7 @@ jobs:
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.0.2
       with:
-        filename: target/site/jacoco/jacoco.xml # double check path with targetdir parameter above
+        filename: target/site/jacoco.xml # double check path with targetdir parameter above
         badge: true
         format: 'markdown'
         output: 'both'
