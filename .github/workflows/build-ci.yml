@@ -56,17 +56,21 @@ jobs:
     - name: Copy Coverage To Predictable Location
       run: cp target/*/jacoco/jacoco.xml target/site/jacoco.xml
 
-    
-    - name: JaCoCo Code Coverage Report
-      id: jacoco_reporter
-      uses: PavanMudigonda/jacoco-reporter@v5.0
+    - name: Upload Code Coverage to GitHub
+      uses: codecov/codecov-action@v2
       with:
-          coverage_results_path: target/site/jacoco.xml
-          coverage_report_name: Coverage
-          coverage_report_title: JaCoCo
-          skip_check_run: false
-          fail_below_threshold: false
-          publish_only_summary: false
+        token: ${{ secrets.CODEGITHUB_TOKEN }}
+        file: target/site/jacoco.xml
+    # - name: JaCoCo Code Coverage Report
+    #   id: jacoco_reporter
+    #   uses: PavanMudigonda/jacoco-reporter@v5.0
+    #   with:
+    #       coverage_results_path: target/site/jacoco.xml
+    #       coverage_report_name: Coverage
+    #       coverage_report_title: JaCoCo
+    #       skip_check_run: false
+    #       fail_below_threshold: false
+    #       publish_only_summary: false
 
     
           
