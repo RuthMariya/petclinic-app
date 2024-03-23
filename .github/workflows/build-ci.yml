@@ -59,8 +59,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         path: |
-          target/surefire-reports
-          target/site/jacoco
+          /home/runner/work/petclinic-app/petclinic-app/target/surefire-reports
+          /home/runner/work/petclinic-app/petclinic-app/target/site/jacoco
 
     # - name: Upload code coverage
     #   uses: actions/upload-artifact@v2
@@ -71,7 +71,7 @@ jobs:
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        filename: target/site/jacoco/jacoco.xml
+        filename: /home/runner/work/petclinic-app/petclinic-app/target/site/jacoco/jacoco.xml
         badge: true
         fail_below_min: true
         format: markdown
