@@ -56,20 +56,17 @@ jobs:
     - name: Copy Coverage To Predictable Location
       run: cp target/*/jacoco/jacoco.xml target/site/jacoco.xml
 
-    - name: ReportGenerator
-      uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
+    
+    - name: JaCoCo Code Coverage Report
+      id: jacoco_reporter
+      uses: PavanMudigonda/jacoco-reporter@v5.0
       with:
-        reports: 'target/site/jacoco/jacoco.xml' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
-        targetdir: 'coveragereport' # REQUIRED # The directory where the generated report should be saved.
-        reporttypes: 'HtmlInline;Jacoco' # The output formats and scope (separated by semicolon)
-
-    - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.0.2
-      with:
-        filename: target/site/jacoco.xml # double check path with targetdir parameter above
-        badge: true
-        format: 'markdown'
-        output: 'both'
+          coverage_results_path: target/site/jacoco.xml
+          coverage_report_name: Coverage
+          coverage_report_title: JaCoCo
+          skip_check_run: false
+          fail_below_threshold: false
+          publish_only_summary: false
 
     
           
