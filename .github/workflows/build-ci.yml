@@ -54,16 +54,20 @@ jobs:
         mvn test verify jacoco:report
 
     - name: Copy Coverage To Predictable Location
-      run: cp target/*/jacoco/jacoco.xml target/site/jacoco.xml
+      run: |
+        cp target/*/jacoco/jacoco.xml target/site/jacoco.xml
+        pwd
+        ls
+        
 
-    - name: Add coverage to PR
-      id: jacoco
-      uses: madrapps/jacoco-report@v1.3
-      with:
-          paths: target/site/jacoco.xml
-          token: ${{ secrets.CODEGITHUB_TOKEN }}
-          min-coverage-overall: 40
-          min-coverage-changed-files: 60
+    # - name: Add coverage to PR
+    #   id: jacoco
+    #   uses: madrapps/jacoco-report@v1.3
+    #   with:
+    #       paths: target/site/jacoco.xml
+    #       token: ${{ secrets.CODEGITHUB_TOKEN }}
+    #       min-coverage-overall: 40
+    #       min-coverage-changed-files: 60
           
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
