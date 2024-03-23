@@ -53,17 +53,17 @@ jobs:
         mvn spring-javaformat:apply
         mvn test verify jacoco:report
 
-    - name: Copy Coverage To Predictable Location
-      run: |
-        cp target/*/jacoco/jacoco.xml target/site/jacoco.xml
-        pwd
-        ls
+    # - name: Copy Coverage To Predictable Location
+    #   run: |
+    #     cp target/*/jacoco/jacoco.xml target/site/jacoco.xml
+    #     pwd
+    #     ls
         
     - name: JaCoCo Code Coverage Report
       id: jacoco_reporter
       uses: PavanMudigonda/jacoco-reporter@v5.0
       with:
-          coverage_results_path: target/site/jacoco.xml
+          coverage_results_path: 'target/**/jacoco.xml'
           coverage_report_name: Coverage
           coverage_report_title: JaCoCo
           github_token: ${{ secrets.CODEGITHUB_TOKEN }}
@@ -79,81 +79,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: code-coverage-report-markdown
-          path: */coverage-results.md 
+          path: '**/coverage-results.md'
           retention-days: 1  
-    # - name: Add coverage to PR
-    #   id: jacoco
-    #   uses: madrapps/jacoco-report@v1.3
-    #   with:
-    #       paths: target/site/jacoco.xml
-    #       token: ${{ secrets.CODEGITHUB_TOKEN }}
-    #       min-coverage-overall: 40
-    #       min-coverage-changed-files: 60
-          
-    # - name: Code Coverage Report
-    #   uses: irongut/CodeCoverageSummary@v1.3.0
-    #   with:
-    #     filename: target/site/jacoco.xml
-    #     badge: true
-    #     fail_below_min: true
-    #     format: markdown
-    #     hide_branch_rate: false
-    #     hide_complexity: true
-    #     indicators: true
-    #     output: both
-    #     thresholds: '60 80'
-
-    # - name: Add Coverage PR Comment
-    #   uses: marocchino/sticky-pull-request-comment@v2
-    #   if: github.event_name == 'pull_request'
-    #   with:
-    #      recreate: true
-    #      path: code-coverage-results.md
-          
-
-    # - name: Upload Code Coverage to GitHub
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     token: ${{ secrets.CODEGITHUB_TOKEN }}
-    #     file: target/site/jacoco.xml
-    # - name: JaCoCo Code Coverage Report
-    #   id: jacoco_reporter
-    #   uses: PavanMudigonda/jacoco-reporter@v5.0
-    #   with:
-    #       coverage_results_path: target/site/jacoco.xml
-    #       coverage_report_name: Coverage
-    #       coverage_report_title: JaCoCo
-    #       skip_check_run: false
-    #       fail_below_threshold: false
-    #       publish_only_summary: false
-
-    
-          
-    # - name: Archive test files and code coverage reports
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     path: |
-    #       target/surefire-reports
-    #       target/site/jacoco
-
-    # - name: Upload code coverage
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: coverage-report
-    #     path: target/site/jacoco/jacoco.xml
-        
-    # - name: Code Coverage Report
-    #   uses: irongut/CodeCoverageSummary@v1.3.0
-    #   with:
-    #     filename: target/site/jacoco/jacoco.xml
-    #     badge: true
-    #     fail_below_min: true
-    #     format: markdown
-    #     hide_branch_rate: false
-    #     hide_complexity: true
-    #     indicators: true
-    #     output: both
-    #     thresholds: '60 80'
 
   docker-build:
     runs-on: ubuntu-latest
