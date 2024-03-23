@@ -2,7 +2,8 @@ name: Build and Deploy
 
 on: workflow_dispatch
   
-permissions: write-all
+permissions:
+  checks: write
   
 
 jobs:
@@ -76,6 +77,7 @@ jobs:
         
     - name: JaCoCo Code Coverage Report
       id: jacoco_reporter
+      continue-on-error: true
       uses: PavanMudigonda/jacoco-reporter@v5.0
       with:
           coverage_results_path: 'target/site/jacoco/jacoco.xml'
@@ -85,7 +87,15 @@ jobs:
           skip_check_run: false
           minimum_coverage: 80
           fail_below_threshold: false
-          publish_only_summary: false    
+          publish_only_summary: false 
+          
+    - name: Report jacoco_reporter Conclusion
+      if: always()
+      uses: dflydev/check-runs-action@v1
+      with:
+          token: ${{ secrets.CODEGITHUB_TOKEN }}
+          id: jacoco_reporter
+          conclusion: ${{ steps.jacoco_reporter.outcome }}
 
     - name: Add Coverage Job Summary
       run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
