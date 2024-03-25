@@ -106,21 +106,15 @@ jobs:
           token: ${{ secrets.CODEGITHUB_TOKEN }}
 
     - name: sast-scan
-      uses: codacy/codacy-analysis-cli-action@master
-      with:
-          output: SAST.sarif
-          format: sarif
-          # Adjust severity of non-security issues
-          gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will hand over control about PR rejection to the GitHub side
-          max-allowed-issues: 2147483647
+      uses: AppThreat/sast-scan-action@1.0.2
+
+    - name: Codacy Coverage Reporter
+      uses: codacy/codacy-coverage-reporter-action@v1.3.0
+     
+          
       
-      # Upload the SARIF file generated in the previous step
-    - name: Upload SARIF results file
-      uses: github/codeql-action/upload-sarif@main
-      with:
-          sarif_file: SAST.sarif
+      
+    
 
   docker-build:
       runs-on: ubuntu-latest
