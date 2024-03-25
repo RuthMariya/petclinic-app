@@ -117,6 +117,8 @@ jobs:
         pwd
         ls -al
         chmod -R 777 .mvn/wrapper
+        chmod a+x mvnw
+        ls -al
             
 
     - uses: actions/checkout@master
