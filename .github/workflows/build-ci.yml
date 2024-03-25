@@ -2,35 +2,30 @@ name: Build and Deploy
 
 on: workflow_dispatch
 
-permissions:
-  checks: write
   
 jobs:
-  demo_app_authentication:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate a token
-        id: generate-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.PRIVATEKEY }}
+  # demo_app_authentication:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Generate a token
+  #       id: generate-token
+  #       uses: actions/create-github-app-token@v1
+  #       with:
+  #         app-id: ${{ vars.APP_ID }}
+  #         private-key: ${{ secrets.PRIVATEKEY }}
 
-      - name: Use the token
-        env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
-        run: |
-          gh api octocat
+      # - name: Use the token
+      #   env:
+      #     GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+      #   run: |
+      #     gh api octocat
   build_and_test:
     runs-on: ubuntu-latest
-    needs: demo_app_authentication
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-          fetch-depth: 0
-          token: ${{ secrets.CODEGITHUB_TOKEN }}
+      
 
     - name: Set up JDK 17
       uses: actions/setup-java@v2
@@ -95,9 +90,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-          fetch-depth: 0
-          token: ${{ secrets.CODEGITHUB_TOKEN }}
+      
 
     - name: sast-scan
       uses: AppThreat/sast-scan-action@1.0.2
@@ -108,9 +101,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-          fetch-depth: 0
-          token: ${{ secrets.CODEGITHUB_TOKEN }}      
+            
 
     - name: Set up Node 14
       uses: actions/setup-node@v3
@@ -120,7 +111,7 @@ jobs:
       run: npm install -g snyk
     - name: run Snyk Open Source Test
       env:
-          SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
+          SNYK_TOKEN: ${{ secrets.CODEGITHUB_TOKEN }}
       run: snyk test
     - name: run Snyk Code Test
       run: snyk code test
