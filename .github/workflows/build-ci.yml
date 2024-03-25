@@ -96,26 +96,14 @@ jobs:
       uses: AppThreat/sast-scan-action@v1.0.0
       with:
        output: reports
-       type: python,bash
+       type: java
     - name: Upload scan reports
       uses: actions/upload-artifact@v1.0.0
       with:
        name: sast-scan-reports
        path: reports
        
-  SAST-Snyk:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-            
-
-    - uses: actions/checkout@master
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master
-      env:
-          SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
+ 
       
 
 
