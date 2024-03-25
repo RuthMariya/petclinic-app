@@ -119,12 +119,25 @@ jobs:
         sudo chmod -R 777 .
         ls -al
             
-
     - uses: actions/checkout@master
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master
+    - uses: snyk/actions/setup@master
+    - uses: actions/setup-go@v1
+      with:
+          go-version: '1.13'
+    - name: Snyk monitor
+      run: |
+        ls -al
+        sudo chmod -R 777 .
+        sudo chmod a+x mvnw
+        ls -al
+        snyk test
       env:
           SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
+    # - uses: actions/checkout@master
+    # - name: Run Snyk to check for vulnerabilities
+    #   uses: snyk/actions/node@master
+    #   env:
+    #       SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
 
           
       
