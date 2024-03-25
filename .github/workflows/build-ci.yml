@@ -114,7 +114,9 @@ jobs:
 
     - name: giving permission
       run: |
-        chmod +x mvnw
+        pwd
+        ls -al
+        chmod -R 777 .mvn/wrapper
             
 
     - uses: actions/checkout@master
