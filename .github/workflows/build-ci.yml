@@ -99,6 +99,12 @@ jobs:
     needs: build_and_test
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 0
+          token: ${{ secrets.CODEGITHUB_TOKEN }}
+
     - name: sast-scan
       uses: AppThreat/sast-scan-action@1.0.2
       # with:
