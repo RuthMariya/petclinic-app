@@ -116,8 +116,7 @@ jobs:
       run: |
         pwd
         ls -al
-        chmod -R 777 .mvn/wrapper
-        chmod a+x mvnw
+        sudo chmod +x mvnw
         ls -al
             
 
