@@ -116,7 +116,7 @@ jobs:
       run: |
         pwd
         ls -al
-        sudo chmod +x mvnw
+        sudo chmod -R 777 .
         ls -al
             
 
