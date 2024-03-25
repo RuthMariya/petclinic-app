@@ -1,13 +1,8 @@
 name: Build and Deploy
 
 on:
-   
-  workflow_dispatch:
-    inputs:
-      publish_artifacts:
-        description: 'Publish artifacts'
-        required: true
-        default: 'true'
+- workflow_dispatch:
+    
   
 permissions:
   checks: write
