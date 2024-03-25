@@ -105,7 +105,23 @@ jobs:
        
  
       
+  SAST-Snyk:
+    runs-on: ubuntu-latest
 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: giving permission
+      run: |
+        chmod +x mvnw
+            
+
+    - uses: actions/checkout@master
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      env:
+          SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
 
           
       
