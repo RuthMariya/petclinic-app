@@ -125,7 +125,7 @@ jobs:
         sudo chmod -R 777 .
         sudo chmod a+x mvnw
         ls -al
-        snyk test --sarif-file-output=snyk.sarif
+        snyk code test --report --project-name="petclinic-app"
       env:
           SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
       continue-on-error: true
