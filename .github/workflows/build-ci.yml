@@ -125,15 +125,21 @@ jobs:
         sudo chmod -R 777 .
         sudo chmod a+x mvnw
         ls -al
-        snyk test >> snyk.sarif
+        snyk test --sarif-file-output=snyk.sarif
       env:
           SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
       continue-on-error: true
 
-    - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v2
+    - name: Upload SARIF file to GitHub Pages
+      uses: actions/upload-artifact@v2
       with:
-          sarif_file: snyk.sarif
+       name: snyk_output
+       path: snyk.sarif
+
+    # - name: Upload result to GitHub Code Scanning
+    #   uses: github/codeql-action/upload-sarif@v2
+    #   with:
+    #       sarif_file: snyk.sarif
     # - uses: actions/checkout@master
     # - name: Run Snyk to check for vulnerabilities
     #   uses: snyk/actions/node@master
