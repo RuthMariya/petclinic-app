@@ -143,13 +143,13 @@ jobs:
        - name: deployment
          run: |
           oc version
-          oc login --token=${OCP_TOKEN} --server=${OCP_URL}
+          oc login --token=${{ secrets.OCP_TOKEN }} --server=${{ vars.OCP_URL }}
           oc whoami
-          oc project ${OCP_PROJECT}
+          oc project ${{ vars.OCP_PROJECT }}
           cd deploy
           ls -la
           helm ls -n ruth
-          helm upgrade --install test-actions -f values.yaml --set image.tag=${{ github.sha }} . -n ${OCP_PROJECT}
+          helm upgrade --install test-actions -f values.yaml --set image.tag=${{ github.sha }} . -n ${{ vars.OCP_PROJECT }}
           
 
 
