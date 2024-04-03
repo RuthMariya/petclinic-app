@@ -25,7 +25,7 @@ persistentVolume:
 
 
 image:
-  repository: docker.io/ruth99/azure
+  repository: docker.io/ruth99/github-actions-pet-clinic
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
