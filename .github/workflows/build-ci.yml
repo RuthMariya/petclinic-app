@@ -101,54 +101,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
        name: sast-scan-reports
-       path: reports
-       
- 
-      
-  SAST-Snyk:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    
-            
-    - uses: actions/checkout@master
-    - uses: snyk/actions/setup@master
-    - uses: actions/setup-go@v1
-      with:
-          go-version: '1.13'
-    - name: Snyk monitor
-      run: |
-        ls -al
-        sudo chmod -R 777 .
-        sudo chmod a+x mvnw
-        ls -al
-        snyk code test --report --project-name="petclinic-app"
-      env:
-          SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
-      continue-on-error: true
-
-    - name: Upload SARIF file to GitHub Pages
-      uses: actions/upload-artifact@v2
-      with:
-       name: snyk_output
-       path: snyk.sarif
-
-    # - name: Upload result to GitHub Code Scanning
-    #   uses: github/codeql-action/upload-sarif@v2
-    #   with:
-    #       sarif_file: snyk.sarif
-    # - uses: actions/checkout@master
-    # - name: Run Snyk to check for vulnerabilities
-    #   uses: snyk/actions/node@master
-    #   env:
-    #       SNYK_TOKEN: ${{ secrets.SNYK_SAST }}
-
-          
-      
-      
+       path: reports 
     
 
   docker-build:
@@ -157,10 +110,7 @@ jobs:
       steps:
        - name: Checkout code
          uses: actions/checkout@v2
-         with:
-          fetch-depth: 0
-          token: ${{ secrets.CODEGITHUB_TOKEN }}
-
+         
        - name: Download JAR artifact
          uses: actions/download-artifact@v2
          with:
@@ -180,6 +130,29 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ruth99/github-actions-pet-clinic:${{ github.sha }}
+
+  
+  ocp-deploy:
+      runs-on: ubuntu-latest
+      needs: docker-build
+      steps:
+       - name: Checkout code
+         uses: actions/checkout@v2
+
+       - name: deployment
+         run: |
+          oc version
+          oc login --token=${OCP_TOKEN} --server=${OCP_URL}
+          oc whoami
+          oc project ${OCP_PROJECT}
+          cd deploy
+          ls -la
+          helm ls -n ruth
+          helm upgrade --install test-actions -f values.yaml --set image.tag=${{ github.sha }} . -n ${OCP_PROJECT}
+          
+
+
+         
 
  
      
