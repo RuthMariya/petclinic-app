@@ -4,6 +4,12 @@ FROM openjdk:17
 # Expose port 8080
 EXPOSE 8080
 
+RUN pwd
+
+RUN ls -lrt
+
+RUN cd target && ls -lrt
+
 # Set the working directory
 WORKDIR /app
 
