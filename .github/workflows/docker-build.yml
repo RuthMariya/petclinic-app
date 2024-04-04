@@ -48,7 +48,7 @@ jobs:
            ls -lrt target
 
        - name: Copy artifact to Docker build context
-         run: cp /home/runner/work/petclinic-app/petclinic-app/target/*.jar/artifact .
+         run: cp -R /home/runner/work/petclinic-app/petclinic-app/target/*.jar/artifact .
 
 
 
