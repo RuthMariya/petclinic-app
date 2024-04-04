@@ -32,11 +32,12 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        maven: 3.9.0
 
     - name: Build and test with Maven
       run: |
        mvn spring-javaformat:apply
-       mvn -B package -Pcoverage
+       mvn package -Pcoverage
       
 
     - name: Upload JAR artifact
