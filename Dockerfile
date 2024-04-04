@@ -4,17 +4,12 @@ FROM openjdk:17
 # Expose port 8080
 EXPOSE 8080
 
-RUN pwd
-
-RUN ls -lrt
-
-RUN cd target && ls -lrt
 
 # Set the working directory
 WORKDIR /app
 
 # Copy the JAR file into the Docker image
-COPY target/liberty-demo-spring-3.0.0-SNAPSHOT.jar /app/app.jar
+COPY /home/runner/work/petclinic-app/petclinic-app/target/*.jar /app/app.jar
 
 # Define the command to run your application
 CMD ["java", "-jar", "app.jar"]
