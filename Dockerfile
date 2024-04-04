@@ -8,8 +8,12 @@ EXPOSE 8080
 # Set the working directory
 WORKDIR /app
 
+COPY target/*.jar/artifact.zip /app/artifact.zip
+
+RUN unzip artifact.zip
+
 # Copy the JAR file into the Docker image
-COPY /home/runner/work/petclinic-app/petclinic-app/target/*.jar /app/app.jar
+COPY *.jar /app/app.jar
 
 # Define the command to run your application
 CMD ["java", "-jar", "app.jar"]
