@@ -4,7 +4,7 @@ FROM openjdk:17
 # Expose port 8080
 EXPOSE 8080
 
-
+RUN apt-get update && apt-get install -y unzip
 # Set the working directory
 
 
