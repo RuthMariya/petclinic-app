@@ -8,7 +8,7 @@ EXPOSE 8080
 # Set the working directory
 WORKDIR /app
 
-COPY target/*.jar/artifact.zip /app/artifact.zip
+COPY /home/runner/work/petclinic-app/petclinic-app/target/*.jar/artifact.zip /app/artifact.zip
 
 RUN unzip artifact.zip
 
