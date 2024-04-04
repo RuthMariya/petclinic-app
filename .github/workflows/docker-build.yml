@@ -43,6 +43,11 @@ jobs:
          with:
           path: target/*.jar
 
+       - name: List downloaded artifacts
+         run: |
+           ls -lrt target
+
+
        - name: docker login
          uses: docker/login-action@v1
          with:
