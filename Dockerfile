@@ -4,19 +4,13 @@ FROM openjdk:17
 # Expose port 8080
 EXPOSE 8080
 
-RUN apt-get update && apt-get install unzip -y
+# RUN apt-get update && apt-get install unzip -y
 
 # Set the working directory
 
 
-# COPY /home/runner/work/petclinic-app/petclinic-app/target/*.jar/artifact.zip /app/artifact.zip
+COPY staging/target/*.jarapp.jar
 
-RUN unzip artifact.zip
+RUN chmod +755 -R /app
 
-WORKDIR /app
-
-# Copy the JAR file into the Docker image
-COPY artifact/*.jar /app/app.jar
-
-# Define the command to run your application
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "/app/app.jar"]
